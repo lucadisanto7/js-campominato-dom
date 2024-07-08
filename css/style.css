@@ -19,7 +19,11 @@
     height: calc(100% / 10);
     background-color: white;
     border: 1px solid black;
+    cursor: pointer;
 }
 .active {
     background-color: lightblue;
+}
+.bomb {
+    background-color: red;
 }
