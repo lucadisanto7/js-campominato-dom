@@ -15,8 +15,11 @@ function generateBombs(max, count) {
     }
     return bombs;
 }
+
 const btn = document.getElementById('start')
 const grid = document.getElementById('grid');
+const totalSquares = 100;
+const totalBombs = 16;
 
 btn.addEventListener('click', function(){
 
