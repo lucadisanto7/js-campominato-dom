@@ -1,5 +1,5 @@
 // Creazione Quadrati
-function createSquare(){
+function createSquare() {
     let currentElement = document.createElement('div');
     currentElement.classList.add('square');
     return currentElement;
@@ -16,26 +16,43 @@ function generateBombs(max, count) {
     return bombs;
 }
 
-const btn = document.getElementById('start')
+const btn = document.getElementById('start');
 const grid = document.getElementById('grid');
 const totalSquares = 100;
 const totalBombs = 16;
 
-btn.addEventListener('click', function(){
+btn.addEventListener('click', function () {
+    grid.innerHTML = ''; // Resetta la griglia
+    let bombs = generateBombs(totalSquares, totalBombs);
+    let score = 0;
+    let gameOver = false;
 
-// Creazione un ciclo di 100 iterazioni per la griglia
-for (let i = 0; i < 100; i++){
-    let currentSquare = createSquare();
-    currentSquare.addEventListener('click', function(){
-        console.log(this);
+    for (let i = 0; i < totalSquares; i++) {
+        let currentSquare = createSquare();
+        currentSquare.innerText = i + 1;
+        currentSquare.addEventListener('click', function () {
+            if (gameOver) return;
 
-        currentSquare.addEventListener('click', function() {
-            this.classList.toggle('active');
-            console.log('Hai cliccato la casella numero:', this.innerText);
+            let squareNumber = parseInt(this.innerText);
+            if (bombs.includes(squareNumber)) {
+                this.classList.add('bomb');
+                gameOver = true;
+                setTimeout(() => {
+                    alert(`Hai perso! Il tuo punteggio è: ${score}`);
+                }, 100); // Ritardo per far vedere il colore rosso
+            } else {
+                this.classList.add('active');
+                score++;
+                if (score === totalSquares - totalBombs) {
+                    gameOver = true;
+                    setTimeout(() => {
+                        alert(`Hai vinto! Il tuo punteggio è: ${score}`);
+                    }, 100); // Ritardo per far vedere il colore azzurro
+                }
+            }
+            this.removeEventListener('click', arguments.callee);
         });
-    });
 
-    currentSquare.innerText = i + 1;
-    grid.append(currentSquare);
-}
-})
+        grid.append(currentSquare);
+    }
+});
