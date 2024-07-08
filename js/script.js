@@ -5,6 +5,16 @@ function createSquare(){
     return currentElement;
 }
 
+function generateBombs(max, count) {
+    let bombs = [];
+    while (bombs.length < count) {
+        let bomb = Math.floor(Math.random() * max) + 1;
+        if (!bombs.includes(bomb)) {
+            bombs.push(bomb);
+        }
+    }
+    return bombs;
+}
 const btn = document.getElementById('start')
 const grid = document.getElementById('grid');
 
